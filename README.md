@@ -33,8 +33,8 @@ A modern, responsive movie database application built with React, Bootstrap, and
 
 - Node.js (v14 or higher)
 - npm or yarn
-- TMDB API key (free at [themoviedb.org](https://www.themoviedb.org/settings/api))
 
+<<<<<<< HEAD
 ### Installation
 
 1. Clone or download this repository
@@ -152,4 +152,6 @@ This project is open source and available for portfolio use.
 ---
 
 Made with ❤️ for your portfolio
+=======
+>>>>>>> 35cd407a5e9ba8e9bcb75111c68abb7b5fe9d16f
 
