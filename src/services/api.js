@@ -1,11 +1,15 @@
 import axios from 'axios';
 
 // TMDB API Configuration
-// Note: For production, you should use environment variables
+// API key is loaded from environment variables
 // You can get a free API key from https://www.themoviedb.org/settings/api
-const API_KEY = '6850c123c4e11a4edfeb776a9caaf494'; // Replace with your TMDB API key
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY || '';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+
+if (!API_KEY) {
+  console.warn('Warning: TMDB API key is not set. Please create a .env file with VITE_TMDB_API_KEY');
+}
 
 const api = axios.create({
   baseURL: BASE_URL,

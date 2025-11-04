@@ -52,8 +52,12 @@ npm install
    - Copy your API key
 
 4. Configure the API key:
-   - Open `src/services/api.js`
-   - Replace `'your_api_key_here'` with your actual TMDB API key
+   - Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Open `.env` and replace `your_api_key_here` with your actual TMDB API key
+   - **Note:** The `.env` file is already in `.gitignore` and won't be committed to Git
 
 5. Start the development server:
 ```bash
@@ -115,9 +119,18 @@ You can deploy this app to various platforms:
 This app uses The Movie Database (TMDB) API. The API is free to use, but you need to:
 1. Sign up for an account
 2. Request an API key
-3. Add the API key to `src/services/api.js`
+3. Add the API key to your `.env` file as `VITE_TMDB_API_KEY`
 
-For production deployment, consider using environment variables instead of hardcoding the API key.
+### Environment Variables
+
+The app uses environment variables for secure API key management:
+- `.env` - Your local environment variables (not committed to Git)
+- `.env.example` - Template file showing required variables
+
+**For Production Deployment:**
+- **Netlify**: Add `VITE_TMDB_API_KEY` in Site Settings > Environment Variables
+- **Vercel**: Add `VITE_TMDB_API_KEY` in Project Settings > Environment Variables
+- **GitHub Pages**: Use GitHub Secrets and update your build workflow
 
 ## Customization
 
