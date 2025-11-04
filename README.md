@@ -33,8 +33,8 @@ A modern, responsive movie database application built with React, Bootstrap, and
 
 - Node.js (v14 or higher)
 - npm or yarn
+- TMDB API key (free at [themoviedb.org](https://www.themoviedb.org/settings/api))
 
-<<<<<<< HEAD
 ### Installation
 
 1. Clone or download this repository
@@ -108,11 +108,36 @@ npm run preview
 
 ## Deployment
 
-You can deploy this app to various platforms:
+### GitHub Pages (Recommended for Portfolio)
 
-- **Netlify** - Drag and drop the `dist` folder
-- **Vercel** - Connect your GitHub repository
-- **GitHub Pages** - Use the `dist` folder after building
+This app is configured for automatic deployment to GitHub Pages. Follow these steps:
+
+1. **Enable GitHub Pages in your repository:**
+   - Go to your repository on GitHub
+   - Click on **Settings** → **Pages**
+   - Under **Source**, select **GitHub Actions**
+   - Save the settings
+
+2. **Add your API key as a GitHub Secret:**
+   - Go to **Settings** → **Secrets and variables** → **Actions**
+   - Click **New repository secret**
+   - Name: `VITE_TMDB_API_KEY`
+   - Value: Your TMDB API key
+   - Click **Add secret**
+
+3. **Push to main branch:**
+   - The GitHub Actions workflow will automatically build and deploy your app
+   - After pushing, go to **Actions** tab to see the deployment progress
+   - Once complete, your app will be live at:
+     `https://jostillo91.github.io/Movie-Database-App/`
+
+4. **Update repository settings (if needed):**
+   - If your repository name is different, update the `base` path in `vite.config.js`
+
+### Other Deployment Options
+
+- **Netlify**: Connect your GitHub repository and add `VITE_TMDB_API_KEY` in environment variables
+- **Vercel**: Connect your GitHub repository and add `VITE_TMDB_API_KEY` in environment variables
 
 ## API Configuration
 
@@ -128,9 +153,9 @@ The app uses environment variables for secure API key management:
 - `.env.example` - Template file showing required variables
 
 **For Production Deployment:**
+- **GitHub Pages**: Add `VITE_TMDB_API_KEY` as a GitHub Secret (Settings → Secrets → Actions)
 - **Netlify**: Add `VITE_TMDB_API_KEY` in Site Settings > Environment Variables
 - **Vercel**: Add `VITE_TMDB_API_KEY` in Project Settings > Environment Variables
-- **GitHub Pages**: Use GitHub Secrets and update your build workflow
 
 ## Customization
 
@@ -152,6 +177,4 @@ This project is open source and available for portfolio use.
 ---
 
 Made with ❤️ for your portfolio
-=======
->>>>>>> 35cd407a5e9ba8e9bcb75111c68abb7b5fe9d16f
 
