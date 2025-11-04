@@ -31,6 +31,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
+      - name: Verify API key is set
+        env:
+          VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
+        run: |
+          if [ -z "$VITE_TMDB_API_KEY" ]; then
+            echo "❌ ERROR: VITE_TMDB_API_KEY secret is not set!"
+            echo "Please add VITE_TMDB_API_KEY in Settings > Secrets > Actions"
+            exit 1
+          else
+            KEY_LENGTH=${#VITE_TMDB_API_KEY}
+            echo "✅ API key is set (length: $KEY_LENGTH characters)"
+            echo "✅ First 4 chars: ${VITE_TMDB_API_KEY:0:4}..."
+          fi
+      
       - name: Build
         run: npm run build
         env:
