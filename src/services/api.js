@@ -7,8 +7,12 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY || '';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
+// Debug: Log API key status (only first 4 chars for security)
 if (!API_KEY) {
-  console.warn('Warning: TMDB API key is not set. Please create a .env file with VITE_TMDB_API_KEY');
+  console.error('❌ TMDB API key is not set!');
+  console.error('Please set VITE_TMDB_API_KEY in your environment variables.');
+} else {
+  console.log('✅ TMDB API key loaded:', API_KEY.substring(0, 4) + '...');
 }
 
 const api = axios.create({
@@ -17,6 +21,27 @@ const api = axios.create({
     api_key: API_KEY,
   },
 });
+
+// Add response interceptor for better error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // API responded with error status
+      console.error('API Error:', error.response.status, error.response.data);
+      if (error.response.status === 401) {
+        console.error('❌ Invalid API key! Please check your VITE_TMDB_API_KEY.');
+      }
+    } else if (error.request) {
+      // Request made but no response
+      console.error('Network Error: No response from API');
+    } else {
+      // Something else happened
+      console.error('Error:', error.message);
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Movie API functions
 export const movieAPI = {

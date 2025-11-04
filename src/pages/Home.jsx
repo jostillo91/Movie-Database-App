@@ -6,11 +6,13 @@ const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         setLoading(true);
+        setError(null);
         const [trendingData, popularData] = await Promise.all([
           movieAPI.getTrendingMovies('day'),
           movieAPI.getPopularMovies(1),
@@ -19,6 +21,11 @@ const Home = () => {
         setPopularMovies(popularData.results || []);
       } catch (error) {
         console.error('Error fetching movies:', error);
+        setError(
+          error.response?.status === 401
+            ? 'API key is invalid or missing. Please check your configuration.'
+            : 'Failed to load movies. Please try again later.'
+        );
       } finally {
         setLoading(false);
       }
@@ -30,6 +37,14 @@ const Home = () => {
   return (
     <div className="container mt-4">
       <h1 className="page-title">Welcome to MovieDB</h1>
+      
+      {error && (
+        <div className="alert alert-danger" role="alert">
+          <strong>Error:</strong> {error}
+          <br />
+          <small>Check the browser console for more details.</small>
+        </div>
+      )}
       
       <section className="mb-5">
         <h2 className="mb-4" style={{ color: '#0d253f' }}>
